@@ -19,7 +19,7 @@ enum EmployeeType {
     case food, ride, maintenance, manager
 }
 
-class employeePass: Pass {
+class EmployeePass: Pass {
     
     var entrant: Entrant
     var employeeType: EmployeeType
@@ -36,28 +36,21 @@ class employeePass: Pass {
         case .kitchen:
             if self.employeeType != .ride {
                 return SwipeResult(access: true)
-            } else {
-                return SwipeResult(access: false)
             }
         case .maintenance:
             if self.employeeType == .maintenance || self.employeeType == .manager {
                 return SwipeResult(access: true)
-            } else {
-                return SwipeResult(access: false)
             }
         case .office:
             if self.employeeType == .manager {
                 return SwipeResult(access: true)
-            } else {
-                return SwipeResult(access: false)
             }
         case .rideControl:
             if self.employeeType != .food {
                 return SwipeResult(access: true)
-            } else {
-                return SwipeResult(access: false)
             }
         }
+        return SwipeResult(access: false)
     }
     
     func swipe(rideAccess: RideAccess) -> SwipeResult {
