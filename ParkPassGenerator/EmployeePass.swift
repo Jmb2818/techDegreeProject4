@@ -15,8 +15,11 @@ protocol Pass {
     func swipe(discountOn: DiscountAccess) -> Int
 }
 
-enum EmployeeType {
-    case food, ride, maintenance, manager
+enum EmployeeType: String {
+    case food = "Food Service"
+    case ride = "Ride Operator"
+    case maintenance = "Maintenance Worker"
+    case manager = "Manager"
 }
 
 class EmployeePass: Pass {
@@ -24,7 +27,45 @@ class EmployeePass: Pass {
     var entrant: Entrant
     var employeeType: EmployeeType
     
-    init(entrant: Entrant, employeeType: EmployeeType) {
+    init(entrant: Entrant, employeeType: EmployeeType) throws {
+        var emptyFields: [String] = []
+        
+        if entrant.firstName == nil {
+            emptyFields.append("First Name")
+        }
+        if entrant.lastName == nil {
+            emptyFields.append("Last Name")
+        }
+        if entrant.streetAddress == nil {
+            emptyFields.append("Street Address")
+        }
+        if entrant.city == nil {
+            emptyFields.append("City")
+        }
+        if entrant.state == nil {
+            emptyFields.append("State")
+        }
+        if entrant.zipCode == nil {
+            emptyFields.append("Zip Code")
+        }
+        if entrant.ssn == nil {
+            emptyFields.append("Social Security Number")
+        }
+        if entrant.dob == nil {
+            emptyFields.append("Date of Birth")
+        }
+        guard emptyFields.isEmpty else {
+            var missingItems = ""
+            for missingItem in emptyFields {
+                if missingItems.isEmpty {
+                    missingItems += " \(missingItem)"
+                } else {
+                    missingItems += ", \(missingItem)"
+                }
+            }
+            let errorString = "Employee pass creation error for: \(employeeType.rawValue). Missing Fields: \(missingItems)"
+            throw GeneratorError.missingInformation(errorString)
+        }
         self.entrant = entrant
         self.employeeType = employeeType
     }

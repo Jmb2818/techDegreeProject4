@@ -17,6 +17,8 @@
 		0BA51B49217FF064009AB74D /* EmployeePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA51B48217FF064009AB74D /* EmployeePass.swift */; };
 		0BA51B4B217FF2CA009AB74D /* AreaAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA51B4A217FF2CA009AB74D /* AreaAccess.swift */; };
 		0BA51B4D217FF9BD009AB74D /* SwipeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA51B4C217FF9BD009AB74D /* SwipeResult.swift */; };
+		0BA51B4F2181520D009AB74D /* GuestPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA51B4E2181520D009AB74D /* GuestPass.swift */; };
+		0BA51B53218158E3009AB74D /* GeneratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA51B52218158E3009AB74D /* GeneratorError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		0BA51B48217FF064009AB74D /* EmployeePass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeePass.swift; sourceTree = "<group>"; };
 		0BA51B4A217FF2CA009AB74D /* AreaAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaAccess.swift; sourceTree = "<group>"; };
 		0BA51B4C217FF9BD009AB74D /* SwipeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeResult.swift; sourceTree = "<group>"; };
+		0BA51B4E2181520D009AB74D /* GuestPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestPass.swift; sourceTree = "<group>"; };
+		0BA51B52218158E3009AB74D /* GeneratorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				0BA51B48217FF064009AB74D /* EmployeePass.swift */,
 				0BA51B4A217FF2CA009AB74D /* AreaAccess.swift */,
 				0BA51B4C217FF9BD009AB74D /* SwipeResult.swift */,
+				0BA51B4E2181520D009AB74D /* GuestPass.swift */,
+				0BA51B52218158E3009AB74D /* GeneratorError.swift */,
 			);
 			path = ParkPassGenerator;
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BA51B47217FEC56009AB74D /* DateEditor.swift in Sources */,
+				0BA51B4F2181520D009AB74D /* GuestPass.swift in Sources */,
 				0BA51B45217FE809009AB74D /* Entrant.swift in Sources */,
+				0BA51B53218158E3009AB74D /* GeneratorError.swift in Sources */,
 				0BA51B35217FE7F7009AB74D /* ViewController.swift in Sources */,
 				0BA51B4D217FF9BD009AB74D /* SwipeResult.swift in Sources */,
 				0BA51B49217FF064009AB74D /* EmployeePass.swift in Sources */,
