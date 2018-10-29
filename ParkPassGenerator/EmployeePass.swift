@@ -66,6 +66,7 @@ class EmployeePass: Pass {
             let errorString = "Employee pass creation error for: \(employeeType.rawValue). Missing Fields: \(missingItems)"
             throw GeneratorError.missingInformation(errorString)
         }
+
         self.entrant = entrant
         self.employeeType = employeeType
     }

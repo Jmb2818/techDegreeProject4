@@ -10,4 +10,7 @@ import Foundation
 
 enum GeneratorError: Error {
     case missingInformation(String)
+    case noDateOfBirth
+    case olderThanFive
+    
 }
