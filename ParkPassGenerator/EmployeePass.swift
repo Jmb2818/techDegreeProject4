@@ -8,13 +8,6 @@
 
 import Foundation
 
-protocol Pass {
-    var entrant: Entrant { get set }
-    func swipe(for areaAcess: AreaAccess) -> SwipeResult
-    func swipe(rideAccess: RideAccess) -> SwipeResult
-    func swipe(discountOn: DiscountAccess) -> Int
-}
-
 enum EmployeeType: String {
     case food = "Food Service"
     case ride = "Ride Operator"
@@ -22,12 +15,21 @@ enum EmployeeType: String {
     case manager = "Manager"
 }
 
+enum ManagerType {
+    case shiftManager
+    case generalManager
+    case seniorManager
+}
+
 class EmployeePass: Pass {
     
     var entrant: Entrant
-    var employeeType: EmployeeType
+    var isBirthday: Bool
+    var passSwipeStamp: Date? = nil
+    let employeeType: EmployeeType
+    let managerType: ManagerType?
     
-    init(entrant: Entrant, employeeType: EmployeeType) throws {
+    init(entrant: Entrant, employeeType: EmployeeType, managementType: ManagerType? = nil) throws {
         var emptyFields: [String] = []
         
         if entrant.firstName == nil {
@@ -51,9 +53,13 @@ class EmployeePass: Pass {
         if entrant.ssn == nil {
             emptyFields.append("Social Security Number")
         }
-        if entrant.dob == nil {
+        if let dateOfBirth = entrant.dob {
+            self.isBirthday = DateEditor.isBirthday(dateOfBirth: dateOfBirth)
+        } else {
             emptyFields.append("Date of Birth")
+            self.isBirthday = false
         }
+        // TODO: Check that manager has a manager type or add that to the list of missing info
         guard emptyFields.isEmpty else {
             var missingItems = ""
             for missingItem in emptyFields {
@@ -69,38 +75,40 @@ class EmployeePass: Pass {
 
         self.entrant = entrant
         self.employeeType = employeeType
+        self.managerType = managementType
     }
     
     func swipe(for areaAccess: AreaAccess) -> SwipeResult {
         switch areaAccess {
         case .amusement:
-            return SwipeResult(access: true)
+            return SwipeResult(access: true, message: birthdayMessage)
         case .kitchen:
             if self.employeeType != .ride {
-                return SwipeResult(access: true)
+                return SwipeResult(access: true, message: birthdayMessage)
             }
         case .maintenance:
             if self.employeeType == .maintenance || self.employeeType == .manager {
-                return SwipeResult(access: true)
+                return SwipeResult(access: true, message: birthdayMessage)
             }
         case .office:
             if self.employeeType == .manager {
-                return SwipeResult(access: true)
+                return SwipeResult(access: true, message: birthdayMessage)
             }
         case .rideControl:
             if self.employeeType != .food {
-                return SwipeResult(access: true)
+                return SwipeResult(access: true, message: birthdayMessage)
             }
         }
-        return SwipeResult(access: false)
+        return SwipeResult(access: false, message: birthdayMessage)
     }
     
     func swipe(rideAccess: RideAccess) -> SwipeResult {
+        // TODO: Swipe Time Rejection
         switch rideAccess {
         case .all:
-            return SwipeResult(access: true)
+            return SwipeResult(access: true, message: birthdayMessage)
         case .skipLines:
-            return SwipeResult(access: false)
+            return SwipeResult(access: false, message: birthdayMessage)
         }
     }
     

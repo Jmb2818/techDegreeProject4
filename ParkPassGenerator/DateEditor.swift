@@ -19,4 +19,11 @@ class DateEditor {
         }
         return dateOfBirth
     }
+    
+    static func isBirthday(dateOfBirth: Date) -> Bool {
+        formatter.dateFormat = "MMM d"
+        let birthDay = formatter.string(from: dateOfBirth)
+        let currentDate = formatter.string(from: Date())
+        return birthDay == currentDate
+    }
 }

@@ -15,9 +15,14 @@ enum GuestType {
 }
 
 class GuestPass: Pass {
-    var entrant: Entrant
-    let guestType: GuestType
     
+    // MARK: Properties
+    var entrant: Entrant
+    var isBirthday: Bool
+    let guestType: GuestType
+    var passSwipeStamp: Date? = nil
+    
+    // MARK: Initializers
     init(entrant: Entrant, guestType: GuestType) throws {
         if guestType == .child {
             guard let dateOfBirth = entrant.dob else {
@@ -29,28 +34,38 @@ class GuestPass: Pass {
                 throw GeneratorError.olderThanFive
             }
         }
+        if let dateOfBirth = entrant.dob {
+            self.isBirthday = DateEditor.isBirthday(dateOfBirth: dateOfBirth)
+        } else {
+            // FIXME: This can be one part of if no else
+            self.isBirthday = false
+        }
+        
         self.entrant = entrant
         self.guestType = guestType
     }
     
+    // MARK: Required Methods
     func swipe(for areaAcess: AreaAccess) -> SwipeResult {
         switch areaAcess {
         case .amusement:
-            return SwipeResult(access: true)
+            return SwipeResult(access: true, message: birthdayMessage)
         default:
-            return SwipeResult(access: false)
+            return SwipeResult(access: false, message: birthdayMessage)
         }
     }
     
     func swipe(rideAccess: RideAccess) -> SwipeResult {
+        
+        // TODO: Swipe time rejection
         switch rideAccess {
         case .all:
-            return SwipeResult(access: true)
+            return SwipeResult(access: true, message: birthdayMessage)
         case .skipLines:
                 if self.guestType == .vip {
-                    return SwipeResult(access: true)
+                    return SwipeResult(access: true, message: birthdayMessage)
                 } else {
-                    return SwipeResult(access: false)
+                    return SwipeResult(access: false, message: birthdayMessage)
             }
         }
     }

@@ -12,13 +12,13 @@ struct SwipeResult {
     let access: Bool
     let description: String
     
-    init(access: Bool) {
+    init(access: Bool, message: String = "") {
         self.access = access
         
         if access {
-            self.description = "Access Granted"
+            self.description = ["Access Granted", message].joined()
         } else {
-            self.description = "Access Denied"
+            self.description = ["Access Denied", message].joined()
         }
     }
     
