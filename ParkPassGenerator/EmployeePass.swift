@@ -59,7 +59,9 @@ class EmployeePass: Pass {
             emptyFields.append("Date of Birth")
             self.isBirthday = false
         }
-        // TODO: Check that manager has a manager type or add that to the list of missing info
+        if employeeType == .manager, managementType == nil {
+           emptyFields.append("Management Type")
+        }
         guard emptyFields.isEmpty else {
             var missingItems = ""
             for missingItem in emptyFields {
@@ -103,7 +105,17 @@ class EmployeePass: Pass {
     }
     
     func swipe(rideAccess: RideAccess) -> SwipeResult {
-        // TODO: Swipe Time Rejection
+        
+        if let lastSwipeDate = passSwipeStamp {
+            if isPassSwipedTooSoon(timeOfLastSwipe: lastSwipeDate) {
+                return SwipeResult(access: false, message: "Sorry you have tried to access this ride in the last 5 seconds.")
+            } else {
+                passSwipeStamp = Date()
+            }
+        } else {
+            passSwipeStamp = Date()
+        }
+        
         switch rideAccess {
         case .all:
             return SwipeResult(access: true, message: birthdayMessage)

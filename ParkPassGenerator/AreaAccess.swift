@@ -15,13 +15,3 @@ enum AreaAccess {
     case maintenance
     case office
 }
-
-enum RideAccess {
-    case all
-    case skipLines
-}
-
-enum DiscountAccess {
-    case food
-    case merchandise
-}

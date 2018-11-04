@@ -8,6 +8,7 @@
 
 import Foundation
 
+// An enumeration of all the errors while generating a pass
 enum GeneratorError: Error {
     case missingInformation(String)
     case noDateOfBirth

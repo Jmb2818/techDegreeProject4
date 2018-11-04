@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// Pass protocol containing the sipe methods for each checkpoint
 protocol Pass {
     var entrant: Entrant { get set }
     var isBirthday: Bool { get }
@@ -17,6 +19,7 @@ protocol Pass {
     func swipe(discountOn: DiscountAccess) -> Int
 }
 extension Pass {
+    // Computed Properties
     var birthdayMessage: String {
         if isBirthday {
             return " Hope you have a wonderful birthday!"
@@ -24,7 +27,7 @@ extension Pass {
             return ""
         }
     }
-    
+    // Default implementation for a function to check the passDate and make sure it is not too soon
    func isPassSwipedTooSoon(timeOfLastSwipe: Date) -> Bool {
         
         let timeOfLastSwipeInSeconds = timeOfLastSwipe.timeIntervalSince1970

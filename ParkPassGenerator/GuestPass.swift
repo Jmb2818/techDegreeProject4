@@ -8,12 +8,6 @@
 
 import Foundation
 
-enum GuestType {
-    case classic
-    case vip
-    case child
-}
-
 class GuestPass: Pass {
     
     // MARK: Properties
@@ -24,6 +18,7 @@ class GuestPass: Pass {
     
     // MARK: Initializers
     init(entrant: Entrant, guestType: GuestType) throws {
+        // If the guest type is a child, make sure there is a DOB and they are under 5
         if guestType == .child {
             guard let dateOfBirth = entrant.dob else {
                 throw GeneratorError.noDateOfBirth
@@ -34,10 +29,11 @@ class GuestPass: Pass {
                 throw GeneratorError.olderThanFive
             }
         }
+        
+        // If the entrant has entered a DOB then check if it is their birthday for special messaging
         if let dateOfBirth = entrant.dob {
             self.isBirthday = DateEditor.isBirthday(dateOfBirth: dateOfBirth)
         } else {
-            // FIXME: This can be one part of if no else
             self.isBirthday = false
         }
         
@@ -56,8 +52,16 @@ class GuestPass: Pass {
     }
     
     func swipe(rideAccess: RideAccess) -> SwipeResult {
+        if let lastSwipeDate = passSwipeStamp {
+            if isPassSwipedTooSoon(timeOfLastSwipe: lastSwipeDate) {
+                return SwipeResult(access: false, message: "Sorry you have tried to access this ride in the last 5 seconds.")
+            } else {
+                passSwipeStamp = Date()
+            }
+        } else {
+            passSwipeStamp = Date()
+        }
         
-        // TODO: Swipe time rejection
         switch rideAccess {
         case .all:
             return SwipeResult(access: true, message: birthdayMessage)
