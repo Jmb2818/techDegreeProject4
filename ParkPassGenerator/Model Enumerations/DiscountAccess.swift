@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Enumeration for discount access types
 enum DiscountAccess {
     case food
     case merchandise

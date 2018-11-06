@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Entrant to park and initializer
 struct Entrant {
     let firstName: String?
     let lastName: String?
@@ -18,6 +19,7 @@ struct Entrant {
     let ssn: Int?
     let dob: Date?
     
+    // Initializer setting everything to nil by default. Checked for correct info in creation of pass.
     init(firstName: String? = nil, lastName: String? = nil, streetAddress: String? = nil, city: String? = nil, state: String? = nil, zipCode: String? = nil, ssn: Int? = nil, dob: Date? = nil) {
         self.firstName = firstName
         self.lastName = lastName

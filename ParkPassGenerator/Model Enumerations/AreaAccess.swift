@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Enumeration for each type of area access
 enum AreaAccess {
     case amusement
     case rideControl

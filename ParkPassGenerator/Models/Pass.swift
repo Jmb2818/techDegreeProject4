@@ -14,6 +14,7 @@ protocol Pass {
     var entrant: Entrant { get set }
     var isBirthday: Bool { get }
     var passSwipeStamp: Date? { get set }
+    var passType: String { get }
     func swipe(for areaAcess: AreaAccess) -> SwipeResult
     func swipe(rideAccess: RideAccess) -> SwipeResult
     func swipe(discountOn: DiscountAccess) -> Int
@@ -33,7 +34,7 @@ extension Pass {
         let timeOfLastSwipeInSeconds = timeOfLastSwipe.timeIntervalSince1970
         let timeNowInSeconds = Date().timeIntervalSince1970
         let timeDifference = timeNowInSeconds - timeOfLastSwipeInSeconds
-        if timeDifference > 5 {
+        if timeDifference < 5 {
             return true
         }
         return false

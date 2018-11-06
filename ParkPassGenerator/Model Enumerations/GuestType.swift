@@ -9,8 +9,8 @@
 import Foundation
 
 // An enumeration for each type of guest there can be
-enum GuestType {
-    case classic
-    case vip
-    case child
+enum GuestType: String {
+    case classic = "Classic Guest"
+    case vip = "VIP Guest"
+    case child = "Child Guest"
 }
